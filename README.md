@@ -1,2 +1,2 @@
 # microservices
-IP96 Shults &amp; Shnirkova
+IP-96 Shults &amp; Shnyrkova
