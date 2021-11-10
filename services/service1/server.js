@@ -1,7 +1,7 @@
 const { Kafka } = require("kafkajs")
 
 const ports_br = ["kafka:9092"]
-const userName = "service1(js)"
+const userName = "service1"
 const topic = "lab3_messages"
 
 const kafka = new Kafka({ userName, ports_br})
