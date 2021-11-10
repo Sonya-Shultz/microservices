@@ -12,9 +12,9 @@ const consume = async () => {
     await consumer.subscribe({topic})
     await consumer.run({
         eachMessage: ({data}) => {
-            console.log(`we get by service1: ${data.value}`)
-            alert(`we get by service1: ${data.value}`)
-        }
+            console.log(`we get by service1: ${data.value}`);
+            alert(`we get by service1: ${data.value}`);
+        },
     })
 }
 
