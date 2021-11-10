@@ -2,11 +2,11 @@ FROM golang:1.15 AS server_builder
 
 WORKDIR /
 COPY services/root-service/main.go .
-RUN go mod init mainroot
+RUN go mod init main
 RUN go mod download
 RUN go build -ldflags "-w -s -linkmode external -extldflags -static" -a main.go
 
 FROM scratch
 EXPOSE 8080
-COPY --from=server_builder /mainroot .
-CMD ["./main"]
+COPY --from=server_builder /main .
+CMD ["./mainroot"]

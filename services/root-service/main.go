@@ -1,4 +1,4 @@
-package mainroot
+package main
 
 import (
 	"context"

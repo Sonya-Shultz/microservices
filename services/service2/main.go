@@ -1,11 +1,9 @@
-package main1
-
+package main
 import (
 	"context"
 	"fmt"
 	"net/http"
 	"time"
-
 	kafka "github.com/segmentio/kafka-go"
 )
 

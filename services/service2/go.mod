@@ -1,4 +1,5 @@
-module main1
+module main
+
 go 1.17
 
 require github.com/segmentio/kafka-go v0.4.23
