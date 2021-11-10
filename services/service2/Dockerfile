@@ -2,6 +2,7 @@ FROM golang:1.15 AS server_builder
 
 WORKDIR /
 COPY services/service2/main.go .
+RUN go mod download
 RUN go build -ldflags "-w -s -linkmode external -extldflags -static" -a main.go
 
 FROM scratch
