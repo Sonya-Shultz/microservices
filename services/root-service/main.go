@@ -1,9 +1,14 @@
 package main
 
 import (
+	"context"
 	"fmt"
 	"io/ioutil"
 	"net/http"
+	"strconv"
+	"time"
+
+	kafka "github.com/segmentio/kafka-go"
 )
 
 func getRemote(url string, results chan string) {
@@ -22,6 +27,8 @@ func getRemote(url string, results chan string) {
 }
 
 func main() {
+	ctx := context.Background()
+	go produce(ctx)
 	http.HandleFunc("/api/root-service", func(w http.ResponseWriter, r *http.Request) {
 		service1Result := make(chan string)
 		service2Result := make(chan string)
@@ -35,4 +42,30 @@ func main() {
 		fmt.Fprint(w, response1Message+response2Message)
 	})
 	http.ListenAndServe(":8080", nil)
+}
+
+const (
+	topic         = "lab3_messages"
+	brokerAddress = "kafka:9092"
+)
+
+func produce(ctx context.Context) {
+	i := 0
+	w := kafka.NewWriter(kafka.WriterConfig{
+		Brokers: []string{brokerAddress},
+		Topic:   topic,
+	})
+	for {
+		err := w.WriteMessages(ctx, kafka.Message{
+			Key:   []byte(strconv.Itoa(i)),
+			Value: []byte("We send: " + strconv.Itoa(i)),
+		})
+		if err != nil {
+			panic("Could not write :( " + err.Error())
+		}
+		fmt.Println("writes:", i)
+		i++
+
+		time.Sleep(20 * time.Second)
+	}
 }

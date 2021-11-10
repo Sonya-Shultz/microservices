@@ -1,14 +1,21 @@
-const http = require('http');
+const { Kafka } = require("kafkajs")
 
-const requestListener = function (req, res) {
-    if (req.url === '/api/service1') {
-        res.writeHead(200);
-        res.write('Hello from node server (service1)');
-    } else {
-        res.writeHead(404);
-    }
-    res.end()
+const ports_br = ["kafka:9092"]
+const userName = "service1(js)"
+const topic = "lab3_messages"
+
+const kafka = new Kafka({ userName, ports_br})
+const consumer = kafka.consumer({qroupId: userName})
+
+const consume = async () => {
+    await consumer.conect()
+    await consumer.subscribe({topic})
+    await consumer.run({
+        eachMessage: ({data}) => {
+            console.log(`we get by service1: ${data.value}`)
+            alert(`we get by service1: ${data.value}`)
+        }
+    })
 }
 
-const server = http.createServer(requestListener);
-server.listen(8080);
+consume();
