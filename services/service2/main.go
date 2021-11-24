@@ -1,25 +1,17 @@
 package main
+
 import (
 	"context"
 	"fmt"
 	"net/http"
-	"time"
+
 	kafka "github.com/segmentio/kafka-go"
 )
 
 func main() {
 	ctx := context.Background()
-	go consume(ctx)
-	var status = "OK"
-
-	//http.HandleFunc("/api/service2/untested-request", func(w http.ResponseWriter, r *http.Request) {
-	//	status = "FAILED"
-	//	fmt.Fprintf(w, "Service2 successfully broken!")
-	//})
 	http.HandleFunc("/api/service2", func(w http.ResponseWriter, r *http.Request) {
-		if status != "OK" {
-			time.Sleep(10 * time.Second)
-		}
+		go consume(ctx)
 		fmt.Fprintf(w, "Hello from go server")
 	})
 	http.ListenAndServe(":8080", nil)

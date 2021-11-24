@@ -28,7 +28,6 @@ func getRemote(url string, results chan string) {
 
 func main() {
 	ctx := context.Background()
-	go produce(ctx)
 	http.HandleFunc("/api/root-service", func(w http.ResponseWriter, r *http.Request) {
 		service1Result := make(chan string)
 		service2Result := make(chan string)
@@ -40,6 +39,7 @@ func main() {
 		response2Message := fmt.Sprintf("service2 response: %s \n\n", <-service2Result)
 
 		fmt.Fprint(w, response1Message+response2Message)
+		go produce(ctx)
 	})
 	http.ListenAndServe(":8080", nil)
 }

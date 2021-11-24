@@ -3,6 +3,7 @@ kind: Ingress
 metadata:
   name: demo-ingress
 spec:
+
   rules:
     - http:
         paths:

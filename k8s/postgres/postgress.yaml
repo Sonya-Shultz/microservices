@@ -18,7 +18,13 @@ spec:
           imagePullPolicy: "IfNotPresent"
           ports:
             - containerPort: 5432
-          env:
+          env:            
+          - name: VAULT_ADDR              
+            value: 'http://vault:8200'            
+          - name: JWT_PATH              
+            value: '/var/run/secrets/kubernetes.io/serviceaccount/token'            
+          - name: SERVICE_PORT              
+            value: '5432'
           - name: POSTGRES_DB
             value: demo
           - name: POSTGRES_USER
