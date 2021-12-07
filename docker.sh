@@ -16,7 +16,7 @@ docker build -t root-service:0.1 -f services/root-service/Dockerfile .
 6. docker build -t service2:0.3 -f services/service2/Dockerfile .
 7. docker build -t root-service:0.3 -f services/root-service/Dockerfile .
 8. kubectl apply -f k8s_v4 (білд без istio)
-9. kubectl apply -f k8s_1/ingress.yaml (білд ingress для зручного рероуту)
+9. kubectl apply -f k8s_v1/ingress.yaml (білд ingress для зручного рероуту)
 10. kubectl apply -f k8s/postgres
 11. kubectl apply -f k8s/storage
 12. kubectl apply -f k8s/kafka
