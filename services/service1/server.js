@@ -1,3 +1,17 @@
+const SimpleNodeLogger = require('simple-node-logger');
+const opts = {
+  timestampFormat:'YYYY-MM-DD HH:mm:ss.SSS'
+};
+
+const log = SimpleNodeLogger.createSimpleLogger(opts);
+
+(function repeatMe() {
+  setTimeout(() => {
+    log.info('hello from service 1');
+    repeatMe();
+  }, 3000)
+})();
+
 const { Kafka } = require("kafkajs")
 const http = require("http");
 

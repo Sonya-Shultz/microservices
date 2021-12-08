@@ -4,6 +4,7 @@
     "main": "server.js",
     "license": "MIT",
     "dependencies": {
+      "simple-node-logger": "^18.12.21",
       "kafkajs": "^1.15.0"
     },
     "scripts": {
